@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/startactivity_bg"
+    tools:context=".StartActivity">
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="371dp"
+        android:layout_height="382dp"
+        app:srcCompat="@drawable/gambar1"
+        tools:layout_editor_absoluteX="20dp"
+        tools:layout_editor_absoluteY="-10dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/lato"
+        android:text="Welcome to Planic"
+        android:textColor="#070707"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="65dp"
+        tools:layout_editor_absoluteY="434dp" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/lato"
+        android:text="An easy to use to do list application"
+        android:textColor="#070707"
+        android:textSize="14sp"
+        android:textStyle="normal"
+        tools:layout_editor_absoluteX="98dp"
+        tools:layout_editor_absoluteY="475dp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button"
+        android:layout_width="330dp"
+        android:layout_height="54dp"
+        android:background="@drawable/squarecorner20"
+        android:text="Let's get started"
+        android:textAllCaps="false"
+        android:textColor="@color/whitebluish"
+        android:textSize="24sp"
+        tools:layout_editor_absoluteX="40dp"
+        tools:layout_editor_absoluteY="573dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
