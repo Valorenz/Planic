@@ -14,34 +14,73 @@
         android:layout_height="867dp"
         app:srcCompat="@drawable/bluecircle"
         tools:layout_editor_absoluteX="-90dp"
-        tools:layout_editor_absoluteY="-422dp" />
+        tools:layout_editor_absoluteY="-422dp"
+        tools:ignore="MissingConstraints" />
 
-    <LinearLayout
-        android:layout_width="575dp"
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="-82dp"
-        tools:layout_editor_absoluteY="26dp">
+        android:layout_marginEnd="152dp"
+        android:fontFamily="@font/lato"
+        android:text="Sign In"
+        android:textColor="#F0F8FF"
+        android:textSize="40sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="98dp"
-            android:fontFamily="@font/lato"
-            android:text="Sign In"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="40sp" />
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="278dp"
+        android:layout_height="45dp"
+        app:srcCompat="@drawable/signup_signin_register_shape"
+        tools:layout_editor_absoluteX="66dp"
+        tools:layout_editor_absoluteY="92dp"
+        tools:ignore="MissingConstraints" />
 
-        <EditText
-            android:id="@+id/editTextText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:fontFamily="@font/lato"
-            android:hint="Username/Email"
-            android:textAlignment="center"
-            android:inputType="text"
-            android:text="" />
-    </LinearLayout>
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="278dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="64dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/signup_signin_register_shape"
+        tools:layout_editor_absoluteY="182dp"
+        tools:ignore="MissingConstraints" />
+
+    <EditText
+        android:id="@+id/editTextText2"
+        android:layout_width="267dp"
+        android:layout_height="43dp"
+        android:ems="10"
+        android:hint="Username"
+        android:inputType="text"
+        tools:layout_editor_absoluteX="71dp"
+        tools:layout_editor_absoluteY="93dp"
+        tools:ignore="MissingConstraints" />
+
+    <EditText
+        android:id="@+id/editTextText3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="text"
+        tools:layout_editor_absoluteX="71dp"
+        tools:layout_editor_absoluteY="182dp"
+        tools:ignore="MissingConstraints" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button2"
+        android:layout_width="126dp"
+        android:layout_height="46dp"
+        android:background="@drawable/signup_signin_register_shape"
+        android:fontFamily="@font/lato"
+        android:text="Login"
+        android:textColor="@color/white"
+        tools:layout_editor_absoluteX="142dp"
+        tools:layout_editor_absoluteY="274dp"
+        tools:ignore="MissingConstraints" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
