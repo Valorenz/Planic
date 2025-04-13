@@ -8,6 +8,8 @@
            android:startColor="@color/whitebluish"
            android:type="linear"
        />
+       <corners
+           android:radius="20dp"/>
    </shape>
 </item>
 </selector>
