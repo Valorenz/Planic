@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Background white color -->
+    <item android:top="0dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#F0F8FF" />
+        </shape>
+    </item>
+
+    <!-- Blue curved shape -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:startColor="#3787EA"
+                android:endColor="#87CEFA"
+                android:angle="-90" />
+            <corners android:bottomLeftRadius="2000dp"
+                android:bottomRightRadius="0dp"/>
+        </shape>
+    </item>
+
+</layer-list>

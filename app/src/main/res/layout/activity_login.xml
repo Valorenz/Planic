@@ -5,82 +5,97 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/whitebluish"
+    android:background="@drawable/loginactivity_bg"
     tools:context=".LoginActivity">
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="1003dp"
-        android:layout_height="867dp"
-        app:srcCompat="@drawable/bluecircle"
-        tools:layout_editor_absoluteX="-90dp"
-        tools:layout_editor_absoluteY="-422dp"
-        tools:ignore="MissingConstraints" />
-
+    <!-- Title -->
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="152dp"
+        android:layout_marginTop="32dp"
         android:fontFamily="@font/lato"
         android:text="Sign In"
-        android:textColor="#F0F8FF"
+        android:textColor="#2196F3"
         android:textSize="40sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- Background Shape for Email -->
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="278dp"
         android:layout_height="45dp"
-        app:srcCompat="@drawable/signup_signin_register_shape"
-        tools:layout_editor_absoluteX="66dp"
-        tools:layout_editor_absoluteY="92dp"
-        tools:ignore="MissingConstraints" />
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@id/textView3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/signup_signin_register_shape" />
 
+    <!-- Email EditText -->
+    <EditText
+        android:id="@+id/editTextEmail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        app:layout_constraintTop_toTopOf="@id/imageView3"
+        app:layout_constraintBottom_toBottomOf="@id/imageView3"
+        app:layout_constraintStart_toStartOf="@id/imageView3"
+        app:layout_constraintEnd_toEndOf="@id/imageView3" />
+
+    <!-- Background Shape for Password -->
     <ImageView
         android:id="@+id/imageView4"
         android:layout_width="278dp"
         android:layout_height="45dp"
-        android:layout_marginStart="64dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/imageView3"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/signup_signin_register_shape"
-        tools:layout_editor_absoluteY="182dp"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/signup_signin_register_shape" />
 
+    <!-- Password EditText -->
     <EditText
-        android:id="@+id/editTextText2"
-        android:layout_width="267dp"
-        android:layout_height="43dp"
-        android:ems="10"
-        android:hint="Username"
-        android:inputType="text"
-        tools:layout_editor_absoluteX="71dp"
-        tools:layout_editor_absoluteY="93dp"
-        tools:ignore="MissingConstraints" />
-
-    <EditText
-        android:id="@+id/editTextText3"
-        android:layout_width="wrap_content"
+        android:id="@+id/editTextPassword"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:ems="10"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:hint="Password"
-        android:inputType="text"
-        tools:layout_editor_absoluteX="71dp"
-        tools:layout_editor_absoluteY="182dp"
-        tools:ignore="MissingConstraints" />
+        android:inputType="textPassword"
+        app:layout_constraintTop_toTopOf="@id/imageView4"
+        app:layout_constraintBottom_toBottomOf="@id/imageView4"
+        app:layout_constraintStart_toStartOf="@id/imageView4"
+        app:layout_constraintEnd_toEndOf="@id/imageView4" />
 
+    <!-- Login Button -->
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button2"
-        android:layout_width="126dp"
+        android:id="@+id/buttonLogin"
+        android:layout_width="0dp"
         android:layout_height="46dp"
+        android:layout_marginTop="32dp"
         android:background="@drawable/signup_signin_register_shape"
         android:fontFamily="@font/lato"
         android:text="Login"
         android:textColor="@color/white"
-        tools:layout_editor_absoluteX="142dp"
-        tools:layout_editor_absoluteY="274dp"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintTop_toBottomOf="@id/imageView4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="64dp"
+        android:layout_marginEnd="64dp" />
 
+    <!-- Google Sign-In Button -->
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/btnGoogleSignIn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@id/buttonLogin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
