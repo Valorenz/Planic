@@ -20,6 +20,19 @@
             android:textColor="#1E1E1E"
             android:layout_marginBottom="24dp" />
 
+
+        <ImageView
+            android:id="@+id/imageViewTask"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:background="@color/grey" />
+
+        <Button
+            android:id="@+id/btnUploadImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pilih Gambar" />
         <!-- Input Judul -->
         <EditText
             android:id="@+id/AddTitle"
@@ -67,6 +80,9 @@
             android:textColor="#FFFFFF"
             android:backgroundTint="#4CAF50"
             android:layout_marginBottom="12dp" />
+
+
+
 
 
     </LinearLayout>

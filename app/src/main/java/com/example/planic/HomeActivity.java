@@ -50,6 +50,7 @@ public class HomeActivity extends AppCompatActivity {
             intent.putExtra("taskTitle", task.title);
             intent.putExtra("taskDescription", task.description);
             intent.putExtra("taskDeadline", task.deadline);
+            intent.putExtra("taskImageUrl", task.imageUrl);
             startActivity(intent);
         });
 
