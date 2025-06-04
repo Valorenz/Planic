@@ -2,22 +2,20 @@ package com.example.planic;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
-
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -28,8 +26,23 @@ public class HomeActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private TaskAdapter taskAdapter;
     private List<Task> taskList;
-    private DatabaseReference dbRef;
-    private Button btnAdd;
+    private DatabaseReference taskRef;
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            getWindow().getDecorView().setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                            | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_FULLSCREEN
+            );
+        }
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,12 +50,38 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         recyclerView = findViewById(R.id.recyclerView);
-        btnAdd = findViewById(R.id.btnAdd);
-
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         taskList = new ArrayList<>();
         taskAdapter = new TaskAdapter(taskList);
         recyclerView.setAdapter(taskAdapter);
+
+        // Ambil user ID yang sedang login
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        // Path: Tasks/{userId}
+        taskRef = FirebaseDatabase.getInstance("https://planic-5cfc1-default-rtdb.asia-southeast1.firebasedatabase.app/")
+                .getReference("Tasks")
+                .child(userId);
+
+        // Ambil data task user dari Firebase
+        taskRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                taskList.clear();
+                for (DataSnapshot taskSnapshot : snapshot.getChildren()) {
+                    Task task = taskSnapshot.getValue(Task.class);
+                    if (task != null) {
+                        taskList.add(task);
+                    }
+                }
+                taskAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(HomeActivity.this, "Gagal memuat data", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         taskAdapter.setOnItemClickListener(task -> {
             Intent intent = new Intent(HomeActivity.this, EditTaskActivity.class);
@@ -54,38 +93,13 @@ public class HomeActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-
-        // Referensi ke Firebase Realtime Database
-        dbRef = FirebaseDatabase.getInstance("https://planic-5cfc1-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Tasks");
-
-        // Ambil data dari Firebase
-        dbRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                taskList.clear();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    Task task = dataSnapshot.getValue(Task.class);
-                    if (task != null) {
-                        taskList.add(task);
-                    }
-                }
-                taskAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(HomeActivity.this, "Gagal memuat data", Toast.LENGTH_SHORT).show();
-                Log.e("FirebaseError", error.getMessage());
-            }
+        FloatingActionButton fab = findViewById(R.id.fabAdd);
+        fab.setOnClickListener(view -> {
+            // Intent ke AddTaskActivity
+            startActivity(new Intent(HomeActivity.this, AddTaskActivity.class));
         });
 
-        // Tombol Add Task → pindah ke AddTaskActivity
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, AddTaskActivity.class);
-                startActivity(intent);
-            }
-        });
+
+
     }
 }

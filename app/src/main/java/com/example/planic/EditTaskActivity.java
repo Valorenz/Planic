@@ -3,6 +3,7 @@ package com.example.planic;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -12,8 +13,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
-import com.example.planic.R;
-import com.example.planic.Task;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -24,15 +25,16 @@ public class EditTaskActivity extends AppCompatActivity {
     private ImageView imageEditTask;
 
     private DatabaseReference dbRef;
-    private String taskId, currentImageUrl;
+    private String taskId, currentImageUrl, userId;
     private Uri newImageUri = null;
     private static final int PICK_IMAGE = 123;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_text); // pastikan XML sudah diganti
+        setContentView(R.layout.activity_edit_text); // Pastikan layout ini benar
 
+        // Inisialisasi view
         editTitle = findViewById(R.id.editTitle);
         editDescription = findViewById(R.id.editDescription);
         editDeadline = findViewById(R.id.editDeadline);
@@ -41,6 +43,8 @@ public class EditTaskActivity extends AppCompatActivity {
         btnEditImage = findViewById(R.id.btnEditImage);
         imageEditTask = findViewById(R.id.imageEditTask);
 
+
+        // Ambil data dari intent
         Intent intent = getIntent();
         taskId = intent.getStringExtra("taskId");
         editTitle.setText(intent.getStringExtra("taskTitle"));
@@ -48,11 +52,26 @@ public class EditTaskActivity extends AppCompatActivity {
         editDeadline.setText(intent.getStringExtra("taskDeadline"));
         currentImageUrl = intent.getStringExtra("taskImageUrl");
 
-        Glide.with(this).load(currentImageUrl).into(imageEditTask);
+        Log.d("EditTaskActivity", "Image URL: " + currentImageUrl);
 
+        // Tampilkan gambar dengan Glide (gunakan fallback jika gagal)
+        if (currentImageUrl != null && !currentImageUrl.isEmpty()) {
+            Glide.with(this)
+                    .load(currentImageUrl)
+                    .placeholder(R.drawable.gambar1)
+                    .error(R.drawable.gambar1)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(imageEditTask);
+        } else {
+            imageEditTask.setImageResource(R.drawable.gambar1);
+        }
+
+        // Database reference
+        userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         dbRef = FirebaseDatabase.getInstance("https://planic-5cfc1-default-rtdb.asia-southeast1.firebasedatabase.app/")
-                .getReference("Tasks").child(taskId);
+                .getReference("Tasks").child(userId).child(taskId);
 
+        // Aksi tombol
         btnEditImage.setOnClickListener(v -> chooseImage());
         btnUpdate.setOnClickListener(v -> updateTask());
         btnDelete.setOnClickListener(v -> deleteTask());
@@ -84,7 +103,7 @@ public class EditTaskActivity extends AppCompatActivity {
             return;
         }
 
-        Task updated = new Task(taskId, title, desc, deadline, currentImageUrl);
+        Task updated = new Task(taskId, title, desc, deadline, currentImageUrl, userId);
         dbRef.setValue(updated)
                 .addOnSuccessListener(aVoid -> {
                     Toast.makeText(this, "Tugas diupdate", Toast.LENGTH_SHORT).show();

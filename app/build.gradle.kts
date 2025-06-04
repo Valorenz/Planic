@@ -51,8 +51,10 @@ dependencies {
     implementation(libs.firebase.storage)
     implementation(libs.okhttp)
     implementation(libs.glide)
+    implementation (libs.material.v1110)
     annotationProcessor(libs.glide.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+
 }

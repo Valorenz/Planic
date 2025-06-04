@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -50,6 +51,8 @@ public class AddTaskActivity extends AppCompatActivity {
 
         databaseTasks = FirebaseDatabase.getInstance("https://planic-5cfc1-default-rtdb.asia-southeast1.firebasedatabase.app/")
                 .getReference("Tasks");
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
 
         AddTitle = findViewById(R.id.AddTitle);
         AddDescription = findViewById(R.id.AddDescription);
@@ -138,10 +141,16 @@ public class AddTaskActivity extends AppCompatActivity {
             return;
         }
 
-        String taskId = databaseTasks.push().getKey();
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference userTasksRef = FirebaseDatabase.getInstance(
+                        "https://planic-5cfc1-default-rtdb.asia-southeast1.firebasedatabase.app/")
+                .getReference("Tasks")
+                .child(userId);  // 👈 Task disimpan per user
 
-        Task task = new Task(taskId, title, description, deadline, imageUrl);
-        databaseTasks.child(taskId).setValue(task)
+        String taskId = userTasksRef.push().getKey();
+
+        Task task = new Task(taskId, title, description, deadline, imageUrl, userId);
+        userTasksRef.child(taskId).setValue(task)
                 .addOnSuccessListener(aVoid -> {
                     Toast.makeText(AddTaskActivity.this, "Tugas berhasil ditambahkan", Toast.LENGTH_SHORT).show();
                     finish();
@@ -150,4 +159,5 @@ public class AddTaskActivity extends AppCompatActivity {
                     Toast.makeText(AddTaskActivity.this, "Gagal menambahkan tugas", Toast.LENGTH_SHORT).show();
                 });
     }
+
 }
