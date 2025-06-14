@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.example.planic.model.TaskModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -68,7 +69,7 @@ public class EditTaskActivity extends AppCompatActivity {
 
         // Database reference
         userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        dbRef = FirebaseDatabase.getInstance("https://planic-5cfc1-default-rtdb.asia-southeast1.firebasedatabase.app/")
+        dbRef = FirebaseDatabase.getInstance("https://planic-2-default-rtdb.firebaseio.com/")
                 .getReference("Tasks").child(userId).child(taskId);
 
         // Aksi tombol
@@ -103,7 +104,7 @@ public class EditTaskActivity extends AppCompatActivity {
             return;
         }
 
-        Task updated = new Task(taskId, title, desc, deadline, currentImageUrl, userId);
+        TaskModel updated = new TaskModel(taskId, title, desc, deadline, currentImageUrl, userId);
         dbRef.setValue(updated)
                 .addOnSuccessListener(aVoid -> {
                     Toast.makeText(this, "Tugas diupdate", Toast.LENGTH_SHORT).show();

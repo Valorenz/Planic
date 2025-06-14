@@ -1,4 +1,4 @@
-package com.example.planic;
+package com.example.planic.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,22 +10,24 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.planic.R;
+import com.example.planic.model.TaskModel;
 
 import java.util.List;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder> {
-    private List<Task> taskList;
+    private List<TaskModel> taskList;
     private OnItemClickListener listener;
 
     public interface OnItemClickListener {
-        void onItemClick(Task task);
+        void onItemClick(TaskModel task);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.listener = listener;
     }
 
-    public TaskAdapter(List<Task> taskList) {
+    public TaskAdapter(List<TaskModel> taskList) {
         this.taskList = taskList;
     }
 
@@ -38,7 +40,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull TaskViewHolder holder, int position) {
-        Task task = taskList.get(position);
+        TaskModel task = taskList.get(position);
         holder.taskTitle.setText(task.title);
         holder.taskDescription.setText(task.description);
         holder.taskTime.setText("Deadline: " + task.deadline);

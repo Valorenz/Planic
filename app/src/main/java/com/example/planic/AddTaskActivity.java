@@ -13,6 +13,8 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.planic.model.TaskModel;
+import com.example.planic.utils.FileUtils;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -49,7 +51,7 @@ public class AddTaskActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
 
-        databaseTasks = FirebaseDatabase.getInstance("https://planic-5cfc1-default-rtdb.asia-southeast1.firebasedatabase.app/")
+        databaseTasks = FirebaseDatabase.getInstance("https://planic-2-default-rtdb.firebaseio.com/")
                 .getReference("Tasks");
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -143,13 +145,13 @@ public class AddTaskActivity extends AppCompatActivity {
 
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         DatabaseReference userTasksRef = FirebaseDatabase.getInstance(
-                        "https://planic-5cfc1-default-rtdb.asia-southeast1.firebasedatabase.app/")
+                        "https://planic-2-default-rtdb.firebaseio.com/")
                 .getReference("Tasks")
-                .child(userId);  // 👈 Task disimpan per user
+                .child(userId);  // 👈 TaskModel disimpan per user
 
         String taskId = userTasksRef.push().getKey();
 
-        Task task = new Task(taskId, title, description, deadline, imageUrl, userId);
+        TaskModel task = new TaskModel(taskId, title, description, deadline, imageUrl, userId);
         userTasksRef.child(taskId).setValue(task)
                 .addOnSuccessListener(aVoid -> {
                     Toast.makeText(AddTaskActivity.this, "Tugas berhasil ditambahkan", Toast.LENGTH_SHORT).show();

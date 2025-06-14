@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "705470925027",
+    "firebase_url": "https://planic-2-default-rtdb.firebaseio.com",
+    "project_id": "planic-2",
+    "storage_bucket": "planic-2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:705470925027:android:215677e168680ce64c5dd6",
+        "android_client_info": {
+          "package_name": "com.example.planic"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAASUjYVcRCVfyPR_S97D642NDVUdSIE5M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:705470925027:android:b663a0eab6b6010d4c5dd6",
+        "android_client_info": {
+          "package_name": "com.example.planic_2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAASUjYVcRCVfyPR_S97D642NDVUdSIE5M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

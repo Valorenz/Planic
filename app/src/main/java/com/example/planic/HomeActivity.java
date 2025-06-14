@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.planic.adapter.TaskAdapter;
+import com.example.planic.model.TaskModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -22,10 +24,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
-
     private RecyclerView recyclerView;
     private TaskAdapter taskAdapter;
-    private List<Task> taskList;
+    private List<TaskModel> taskList;
     private DatabaseReference taskRef;
 
     @Override
@@ -59,7 +60,7 @@ public class HomeActivity extends AppCompatActivity {
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         // Path: Tasks/{userId}
-        taskRef = FirebaseDatabase.getInstance("https://planic-5cfc1-default-rtdb.asia-southeast1.firebasedatabase.app/")
+        taskRef = FirebaseDatabase.getInstance("https://planic-2-default-rtdb.firebaseio.com/")
                 .getReference("Tasks")
                 .child(userId);
 
@@ -69,7 +70,7 @@ public class HomeActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 taskList.clear();
                 for (DataSnapshot taskSnapshot : snapshot.getChildren()) {
-                    Task task = taskSnapshot.getValue(Task.class);
+                    TaskModel task = taskSnapshot.getValue(TaskModel.class);
                     if (task != null) {
                         taskList.add(task);
                     }
@@ -98,7 +99,6 @@ public class HomeActivity extends AppCompatActivity {
             // Intent ke AddTaskActivity
             startActivity(new Intent(HomeActivity.this, AddTaskActivity.class));
         });
-
 
 
     }

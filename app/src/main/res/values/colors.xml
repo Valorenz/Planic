@@ -5,4 +5,17 @@
     <color name="blue">#3787EA</color>
     <color name="whitebluish">#F0F8FF</color>
     <color name="grey">#808080</color>"
+
+    <!--Punya Saya Ronan-->
+    <color name="light_gray">#C3C3C3</color>
+    <color name="dark_gray">#6A6A6A</color>
+
+    <color name="bg_color">#F0F8FF</color>
+    <color name="txt_color">#3299ED</color>
+    <color name="btn_color">#3787EA</color>
+    <color name="btm_nav_color">#F5FBFF</color>
+
+    <color name="chat_color_sender">#212E36</color>
+    <color name="chat_color_receiver">#7CB342</color>
+    <!--Punya Saya Ronan-->
 </resources>

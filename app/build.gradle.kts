@@ -51,10 +51,21 @@ dependencies {
     implementation(libs.firebase.storage)
     implementation(libs.okhttp)
     implementation(libs.glide)
-    implementation (libs.material.v1110)
+    implementation(libs.material.v1110)
+    implementation(libs.firebase.firestore)
     annotationProcessor(libs.glide.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.ui.firestore)
+    implementation(libs.imagepicker)
+    implementation(libs.photoview)
+}
+
+configurations.all {
+    exclude("com.android.support", "support-compat")
+    exclude("com.android.support", "support-core-utils")
+    exclude("com.android.support", "support-v4")
 }
