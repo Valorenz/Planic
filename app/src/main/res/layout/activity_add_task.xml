@@ -2,8 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="24dp"
-    android:background="@color/whitebluish">
+    android:padding="24dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,19 +13,19 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
             android:text="Add To-Do Item"
-            android:textSize="24sp"
-            android:textStyle="bold"
             android:textColor="#1E1E1E"
-            android:layout_marginBottom="24dp" />
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
 
         <ImageView
             android:id="@+id/imageViewTask"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:scaleType="centerCrop"
-            android:background="@color/grey" />
+            android:background="@color/grey"
+            android:scaleType="centerCrop" />
 
         <Button
             android:id="@+id/btnUploadImage"
@@ -38,51 +37,48 @@
             android:id="@+id/AddTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Judul Tugas"
-            android:textColor="#000000"
-            android:textSize="16sp"
-            android:padding="12dp"
+            android:layout_marginBottom="16dp"
             android:background="@drawable/edittext_background"
-            android:layout_marginBottom="16dp" />
+            android:hint="Judul Tugas"
+            android:padding="12dp"
+            android:textColor="#000000"
+            android:textSize="16sp" />
 
         <!-- Input Deskripsi -->
         <EditText
             android:id="@+id/AddDescription"
             android:layout_width="match_parent"
             android:layout_height="120dp"
-            android:hint="Deskripsi"
-            android:textColor="#000000"
-            android:textSize="16sp"
-            android:gravity="top"
-            android:padding="12dp"
+            android:layout_marginBottom="16dp"
             android:background="@drawable/edittext_background"
-            android:layout_marginBottom="16dp" />
+            android:gravity="top"
+            android:hint="Deskripsi"
+            android:padding="12dp"
+            android:textColor="#000000"
+            android:textSize="16sp" />
 
         <!-- Input Deadline -->
         <EditText
             android:id="@+id/AddDeadline"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Deadline (cth: 30 Mei 2025, 14:00)"
-            android:textColor="#000000"
-            android:textSize="16sp"
-            android:padding="12dp"
+            android:layout_marginBottom="24dp"
             android:background="@drawable/edittext_background"
-            android:layout_marginBottom="24dp" />
+            android:hint="Deadline (cth: 30 Mei 2025, 14:00)"
+            android:padding="12dp"
+            android:textColor="#000000"
+            android:textSize="16sp" />
 
         <!-- Tombol Update -->
         <Button
             android:id="@+id/btnAdd2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:backgroundTint="#4CAF50"
             android:text="Tambah"
             android:textAllCaps="false"
-            android:textColor="#FFFFFF"
-            android:backgroundTint="#4CAF50"
-            android:layout_marginBottom="12dp" />
-
-
-
+            android:textColor="#FFFFFF" />
 
 
     </LinearLayout>
