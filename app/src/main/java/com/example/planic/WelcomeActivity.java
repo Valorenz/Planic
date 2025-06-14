@@ -16,7 +16,7 @@ public class WelcomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         if (FirebaseUtil.isLoggedIn()) {
-            Intent intent = new Intent(WelcomeActivity.this, HomeActivity.class);
+            Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
             return;
