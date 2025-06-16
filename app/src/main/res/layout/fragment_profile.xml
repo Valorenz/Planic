@@ -51,7 +51,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_margin="20dp"
         android:gravity="center_vertical"
         android:orientation="vertical">
 
@@ -69,7 +69,7 @@
 
         <ProgressBar
             android:id="@+id/profile_progress_bar"
-            android:layout_width="32dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:indeterminateTint="@color/btn_color" />
