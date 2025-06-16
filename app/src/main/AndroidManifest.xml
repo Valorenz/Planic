@@ -19,6 +19,15 @@
         android:theme="@style/Theme.Planic"
         tools:targetApi="31">
         <activity
+            android:name=".FullscreenImageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ChatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SearchUserActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="false" />
         <activity
