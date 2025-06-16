@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
     CalendarFragment calendarFragment;
     ChatFragment chatFragment;
     ProfileFragment profileFragment;
+    NoteFragment noteFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         calendarFragment = new CalendarFragment();
         chatFragment = new ChatFragment();
         profileFragment = new ProfileFragment();
+        noteFragment = new NoteFragment();
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnItemSelectedListener(item -> {
@@ -41,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
             if (item.getItemId() == R.id.nav_profile) {
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, profileFragment).commit();
             }
+            if (item.getItemId() == R.id.nav_note) {
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, noteFragment).commit();
+            }
             return true;
         });
         bottomNavigationView.setSelectedItemId(R.id.nav_home);
@@ -54,9 +59,11 @@ public class MainActivity extends AppCompatActivity {
                 if (item.getItemId() == R.id.action_add_task) {
                     intent = new Intent(MainActivity.this, AddTaskActivity.class);
                 } else if (item.getItemId() == R.id.action_add_event) {
-                    intent = new Intent(MainActivity.this, AddTaskActivity.class);
-                } else { // item.getItemId() == R.id.action_add_note
-                    intent = new Intent(MainActivity.this, AddTaskActivity.class);
+                    intent = new Intent(MainActivity.this, AddTaskActivity.class); // ganti jika ada AddEventActivity
+                } else if (item.getItemId() == R.id.action_add_note) {
+                    intent = new Intent(MainActivity.this, AddNoteActivity.class); // ✅ ini perubahan penting
+                } else {
+                    return false;
                 }
                 startActivity(intent);
                 return true;

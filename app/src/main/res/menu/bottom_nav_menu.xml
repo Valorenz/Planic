@@ -15,4 +15,8 @@
         android:id="@+id/nav_profile"
         android:icon="@drawable/person"
         android:title="Profile"/>
+    <item
+        android:id="@+id/nav_note"
+        android:icon="@drawable/ic_note"
+        android:title="Note"/>
 </menu>
