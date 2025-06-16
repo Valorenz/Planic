@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_add_task"
+        android:icon="@drawable/home"
+        android:title="Tambah Tugas" />
+    <item
+        android:id="@+id/action_add_event"
+        android:icon="@drawable/home"
+        android:title="Tambah Acara" />
+    <item
+        android:id="@+id/action_add_note"
+        android:icon="@drawable/home"
+        android:title="Tambah Catatan" />
+</menu>

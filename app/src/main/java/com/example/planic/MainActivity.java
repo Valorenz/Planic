@@ -2,6 +2,7 @@ package com.example.planic;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.PopupMenu;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -46,8 +47,21 @@ public class MainActivity extends AppCompatActivity {
 
         fabAdd = findViewById(R.id.fabAdd);
         fabAdd.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, AddTaskActivity.class);
-            startActivity(intent);
+            PopupMenu popup = new PopupMenu(MainActivity.this, v);
+            popup.getMenuInflater().inflate(R.menu.fab_menu, popup.getMenu());
+            popup.setOnMenuItemClickListener(item -> {
+                Intent intent;
+                if (item.getItemId() == R.id.action_add_task) {
+                    intent = new Intent(MainActivity.this, AddTaskActivity.class);
+                } else if (item.getItemId() == R.id.action_add_event) {
+                    intent = new Intent(MainActivity.this, AddTaskActivity.class);
+                } else { // item.getItemId() == R.id.action_add_note
+                    intent = new Intent(MainActivity.this, AddTaskActivity.class);
+                }
+                startActivity(intent);
+                return true;
+            });
+            popup.show();
         });
     }
 }
