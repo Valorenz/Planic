@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.planic.ChatActivity;
@@ -20,6 +21,7 @@ import com.example.planic.utils.AndroidUtil;
 import com.example.planic.utils.FirebaseUtil;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.DocumentSnapshot;
 
 public class RecentChatAdapter extends FirestoreRecyclerAdapter<ChatroomModel, RecentChatAdapter.ChatroomModelViewHolder> {
     Context context;
@@ -46,7 +48,12 @@ public class RecentChatAdapter extends FirestoreRecyclerAdapter<ChatroomModel, R
                                     }
                                 });
 
-                        holder.usernameText.setText(otherUserModel.getUsername());
+                        String displayName = otherUserModel.getUsername();
+                        if (otherUserModel.getUserId().equals(FirebaseUtil.currentUserId())) {
+                            displayName += " (Me)";
+                        }
+                        holder.usernameText.setText(displayName);
+
                         if (lastMessageSentByMe)
                             holder.lastMessageText.setText(String.format("You: %s", model.getLastMessage()));
                         else
@@ -58,6 +65,29 @@ public class RecentChatAdapter extends FirestoreRecyclerAdapter<ChatroomModel, R
                             AndroidUtil.passUserModelAsIntent(intent, otherUserModel);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             context.startActivity(intent);
+                        });
+
+                        holder.itemView.setOnLongClickListener(v -> {
+                            new AlertDialog.Builder(context)
+                                    .setTitle("Hapus Chat")
+                                    .setMessage("Anda yakin ingin menghapus chat ini?")
+                                    .setPositiveButton("Hapus", (dialog, which) -> {
+                                        FirebaseUtil.getChatroomReference(model.getChatroomId())
+                                                .delete()
+                                                .addOnSuccessListener(aVoid -> AndroidUtil.showToast(context, "Chat berhasil dihapus"))
+                                                .addOnFailureListener(e -> AndroidUtil.showToast(context, "Gagal menghapus chat"));
+
+                                        FirebaseUtil.getChatroomMessagesReference(model.getChatroomId())
+                                                .get()
+                                                .addOnSuccessListener(querySnapshot -> {
+                                                    for (DocumentSnapshot doc : querySnapshot.getDocuments()) {
+                                                        doc.getReference().delete();
+                                                    }
+                                                });
+                                    })
+                                    .setNegativeButton("Batal", null)
+                                    .show();
+                            return true;
                         });
                     }
                 });

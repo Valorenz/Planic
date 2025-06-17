@@ -71,7 +71,11 @@ public class ChatActivity extends AppCompatActivity {
 
         backBtn.setOnClickListener((v) -> getOnBackPressedDispatcher().onBackPressed());
 
-        otherUsername.setText(otherUser.getUsername());
+        String name = otherUser.getUsername();
+        if (otherUser.getUserId().equals(FirebaseUtil.currentUserId())) {
+            name += " (Me)";
+        }
+        otherUsername.setText(name);
 
         getOrCreateChatroomModel();
 
