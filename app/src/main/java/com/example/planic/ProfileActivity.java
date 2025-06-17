@@ -4,21 +4,18 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import androidx.activity.OnBackPressedCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.planic.model.UserModel;
 import com.example.planic.utils.AndroidUtil;
@@ -27,7 +24,7 @@ import com.github.dhaval2404.imagepicker.ImagePicker;
 
 import java.util.Objects;
 
-public class ProfileFragment extends Fragment {
+public class ProfileActivity extends AppCompatActivity {
     ImageView profilePic;
     EditText usernameInput, emailInput;
     Button updateProfileBtn;
@@ -36,35 +33,31 @@ public class ProfileFragment extends Fragment {
     UserModel currentUserModel;
     ActivityResultLauncher<Intent> imagePickLauncher;
     Uri selectedImageUri;
-
-    public ProfileFragment() {
-    }
+    ImageButton backButton;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_profile);
+
+        profilePic = findViewById(R.id.profile_image_view);
+        usernameInput = findViewById(R.id.profile_username);
+        emailInput = findViewById(R.id.profile_email);
+        updateProfileBtn = findViewById(R.id.profile_update_btn);
+        progressBar = findViewById(R.id.profile_progress_bar);
+        logoutBtn = findViewById(R.id.profile_logout_btn);
+        backButton = findViewById(R.id.back_button);
+
         imagePickLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                 result -> {
                     if (result.getResultCode() == Activity.RESULT_OK) {
                         Intent data = result.getData();
                         if (data != null && data.getData() != null) {
                             selectedImageUri = data.getData();
-                            AndroidUtil.setProfilePic(getContext(), selectedImageUri, profilePic);
+                            AndroidUtil.setProfilePic(this, selectedImageUri, profilePic);
                         }
                     }
                 });
-    }
-
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_profile, container, false);
-        profilePic = view.findViewById(R.id.profile_image_view);
-        usernameInput = view.findViewById(R.id.profile_username);
-        emailInput = view.findViewById(R.id.profile_email);
-        updateProfileBtn = view.findViewById(R.id.profile_update_btn);
-        progressBar = view.findViewById(R.id.profile_progress_bar);
-        logoutBtn = view.findViewById(R.id.profile_logout_btn);
 
         getUserData();
 
@@ -72,7 +65,7 @@ public class ProfileFragment extends Fragment {
 
         logoutBtn.setOnClickListener((v) -> {
             FirebaseUtil.logout();
-            Intent intent = new Intent(getContext(), WelcomeActivity.class);
+            Intent intent = new Intent(this, WelcomeActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         });
@@ -83,7 +76,13 @@ public class ProfileFragment extends Fragment {
                     return null;
                 }));
 
-        return view;
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                finish();
+            }
+        });
+        backButton.setOnClickListener((v) -> getOnBackPressedDispatcher().onBackPressed());
     }
 
     void getUserData() {
@@ -93,7 +92,7 @@ public class ProfileFragment extends Fragment {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         Uri uri = task.getResult();
-                        AndroidUtil.setProfilePic(getContext(), uri, profilePic);
+                        AndroidUtil.setProfilePic(this, uri, profilePic);
                     }
                 });
 
@@ -137,9 +136,9 @@ public class ProfileFragment extends Fragment {
                 .addOnCompleteListener(task -> {
                     setInProgress(false);
                     if (task.isSuccessful()) {
-                        AndroidUtil.showToast(getContext(), "Profile Updated");
+                        AndroidUtil.showToast(this, "Profile Updated");
                     } else {
-                        AndroidUtil.showToast(getContext(), "Update Failed");
+                        AndroidUtil.showToast(this, "Update Failed");
                     }
                 });
     }
