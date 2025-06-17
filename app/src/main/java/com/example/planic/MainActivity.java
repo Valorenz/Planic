@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                 if (item.getItemId() == R.id.action_add_task) {
                     intent = new Intent(MainActivity.this, AddTaskActivity.class);
                 } else if (item.getItemId() == R.id.action_add_event) {
-                    intent = new Intent(MainActivity.this, AddTaskActivity.class);
+                    intent = new Intent(MainActivity.this, AddEventActivity.class);
                 } else if (item.getItemId() == R.id.action_add_note) {
                     intent = new Intent(MainActivity.this, AddNoteActivity.class);
                 } else {
